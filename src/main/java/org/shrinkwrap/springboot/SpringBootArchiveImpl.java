@@ -7,6 +7,7 @@ import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.exporter.TarExporter;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
+import org.jboss.shrinkwrap.api.exporter.ZipStoredExporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.impl.base.container.ContainerBase;
 import org.jboss.shrinkwrap.impl.base.path.BasicPath;
@@ -50,7 +51,7 @@ public class SpringBootArchiveImpl extends ContainerBase<SpringBootArchive> impl
 
     private static final String MANIFEST_FILE = "" +
             "Main-Class: org.springframework.boot.loader.JarLauncher" + System.lineSeparator() +
-            "Start-Class: %s";
+            "Start-Class: %s" + System.lineSeparator();
 
     @Override
     public SpringBootArchive addSpringBootApplication(Class<?> startClass) {
@@ -64,7 +65,7 @@ public class SpringBootArchiveImpl extends ContainerBase<SpringBootArchive> impl
     @Override
     public SpringBootArchive addLib(JavaArchive lib) {
         this.addAsDirectory(PATH_LIBRARY);
-        this.add(lib, PATH_LIBRARY, ZipStoreExporter.class);
+        this.add(lib, PATH_LIBRARY, ZipStoredExporter.class);
         return this;
     }
 
